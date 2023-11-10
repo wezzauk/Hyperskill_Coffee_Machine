@@ -30,17 +30,17 @@ public class Ingredients {
     }
 
     public int enoughIngredients(){
-        System.out.println("How many ml of water does the coffee machine have?");
+        System.out.println("Write how many ml of water the coffee machine has:");
         int qtyWater = scanner.nextInt();
-        System.out.println("How many ml of milk does the coffee machine have?");
+        System.out.println("Write how many ml of milk the coffee machine has:");
         int qtyMilk = scanner.nextInt();
-        System.out.println("How many grams of coffee beans does the coffee machine have?");
+        System.out.println("Write how many grams of coffee beans the coffee machine has:");
         int qtyCoffeeBeans = scanner.nextInt();
+
         int cupsByWater = qtyWater / water;
         int cupsByMilk = qtyMilk / milk;
         int cupsByCoffeeBeans = qtyCoffeeBeans / coffeeBeans;
         int minTemporary = Math.min(cupsByWater, cupsByMilk);
-
         return Math.min(minTemporary, cupsByCoffeeBeans);
     }
 }
