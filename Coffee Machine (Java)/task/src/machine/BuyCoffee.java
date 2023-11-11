@@ -56,11 +56,49 @@ public class BuyCoffee {
     public static void setCash(int moreCash){
         cash = moreCash;
     }
+    
 
 
 
     //METHODS
 
+    public static String checkEnoughSupplies(int coffeeType){
+        if(coffeeType == 1){
+            return enoughIngredients(espressoWater, espressoMilk, espressoCoffeeBeans, espressoCost);
+            //espresso
+        }
+        else if(coffeeType == 2){
+            return enoughIngredients(latteWater, latteMilk, latteCoffeeBeans, latteCost);
+            // latte
+        }
+        else if(coffeeType ==3){
+            return enoughIngredients(cappuccinoWater, cappuccinoMilk, cappuccinoCoffeeBeans, cappuccinoCost);
+            //cappuccino
+        }
+        return "";
+    }
+
+    public static String enoughIngredients(int cupOfCoffeeWater, int cupOfCoffeeMilk, int cupOfCoffeeBeans, int cupOfCoffeeCost){
+        int cupsByWater = water / cupOfCoffeeWater;
+        int cupsByMilk = milk / cupOfCoffeeMilk;
+        int cupsByCoffeeBeans = coffeeBeans / cupOfCoffeeBeans;
+
+        if(cupsByWater < 0){
+            return "Sorry, not enough water!";
+        }
+        else if(cupsByMilk < 0){
+            return "Sorry, not enough milk!";
+        }
+        else if(cupsByCoffeeBeans < 0){
+            return "Sorry, not enough coffee beans!";
+        }
+        setCups(cups - 1);
+        setWater(water - cupOfCoffeeWater);
+        setMilk(milk - cupOfCoffeeMilk);
+        setCoffeeBeans(coffeeBeans - cupOfCoffeeBeans);
+        setCash(cash + cupOfCoffeeCost);
+        return "I have enough resources, making you a coffee!";
+    }
 
     public static void dispenseCoffee(int coffeeChoice){
         setCups(cups - 1);
@@ -98,37 +136,26 @@ public class BuyCoffee {
     }
 
     public static void buyLoop(int coffeeChoice){
-        BuyCoffee.displaySupplies();
-
-        switch (choice) {
-            case "back":
-                break;
-            case "buy":
-                System.out.println("What do you want to buy? 1 - espresso, 2 - latte, 3 - cappuccino:");
-                int coffeeChoice = scanner.nextInt();
-                buyCoffee.dispenseCoffee(coffeeChoice);
-                break;
-            case "fill":
-                System.out.println("Write how many ml of water you want to add:");
-                int addWater = scanner.nextInt();
-                buyCoffee.setWater(buyCoffee.getWater() + addWater);
-                System.out.println("Write how many ml of milk you want to add:");
-                int addMilk = scanner.nextInt();
-                buyCoffee.setMilk(buyCoffee.getMilk() + addMilk);
-                System.out.println("Write how many grams of coffee beans you want to add:");
-                int addCoffeeBeans = scanner.nextInt();
-                buyCoffee.setCoffeeBeans(buyCoffee.getCoffeeBeans() + addCoffeeBeans);
-                System.out.println("Write how many disposable cups you want to add:");
-                int addCups = scanner.nextInt();
-                buyCoffee.setCups(buyCoffee.getCups() + addCups);
-                break;
-            case "take":
-                System.out.println("I gave you $" + buyCoffee.getCash() + "\n");
-                buyCoffee.setCash(0);
-                break;
-        }
-        buyCoffee.displaySupplies();
+        System.out.println(checkEnoughSupplies(coffeeChoice));
     }
 
+    public static void fillMachine(){
+        Scanner scanner = new Scanner(System.in);
+
+        System.out.println("Write how many ml of water you want to add:");
+        int addWater = scanner.nextInt();
+        setWater(water + addWater);
+        System.out.println("Write how many ml of milk you want to add:");
+        int addMilk = scanner.nextInt();
+        setMilk(milk + addMilk);
+        System.out.println("Write how many grams of coffee beans you want to add:");
+        int addCoffeeBeans = scanner.nextInt();
+        setCoffeeBeans(coffeeBeans + addCoffeeBeans);
+        System.out.println("Write how many disposable cups you want to add:");
+        int addCups = scanner.nextInt();
+        setCups(cups + addCups);
+
+        scanner.close();
+    }
 
 }

@@ -25,38 +25,21 @@ public class CoffeeMachine {
                     System.out.println("What do you want to buy? 1 - espresso, 2 - latte, 3 - cappuccino, back - to main menu:");
                     String coffeeChoice = scanner.nextLine();
 
-                    if(coffeeChoice.equals("back")){
-                        break;
-                    } else {
-                        BuyCoffee.buyLoop(Integer.parseInt(coffeeChoice));   //HERE
-                        buyCoffee.dispenseCoffee(coffeeChoice);
-                        break;
+                    if (!coffeeChoice.equals("back")) {
+                        BuyCoffee.buyLoop(Integer.parseInt(coffeeChoice));
                     }
+                    break;
 
                 case "fill":
-                    System.out.println("Write how many ml of water you want to add:");
-                    int addWater = scanner.nextInt();
-                    buyCoffee.setWater(buyCoffee.getWater() + addWater);
-                    System.out.println("Write how many ml of milk you want to add:");
-                    int addMilk = scanner.nextInt();
-                    buyCoffee.setMilk(buyCoffee.getMilk() + addMilk);
-                    System.out.println("Write how many grams of coffee beans you want to add:");
-                    int addCoffeeBeans = scanner.nextInt();
-                    buyCoffee.setCoffeeBeans(buyCoffee.getCoffeeBeans() + addCoffeeBeans);
-                    System.out.println("Write how many disposable cups you want to add:");
-                    int addCups = scanner.nextInt();
-                    buyCoffee.setCups(buyCoffee.getCups() + addCups);
+                    BuyCoffee.fillMachine();
                     break;
+
                 case "take":
-                    System.out.println("I gave you $" + buyCoffee.getCash() + "\n");
-                    buyCoffee.setCash(0);
+                    System.out.println("I gave you $" + BuyCoffee.getCash() + "\n");
+                    BuyCoffee.setCash(0);
                     break;
             }
-
-
-
         }
-
     }
 
     //METHODS
