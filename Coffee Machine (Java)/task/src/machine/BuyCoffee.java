@@ -4,26 +4,26 @@ import java.util.Scanner;
 
 public class BuyCoffee {
     Scanner scanner = new Scanner(System.in);
-    public int water = 400;
-    public int milk = 540;
-    public int coffeeBeans = 120;
-    public int cups = 9;
-    public int cash = 550;
+    private int water = 400;
+    private int milk = 540;
+    private int coffeeBeans = 120;
+    private int cups = 9;
+    private int cash = 550;
 
-    public int espressoWater = 250;
-    public int espressoMilk = 0;
-    public int espressoCoffeeBeans = 16;
-    public int espressoCost = 4;
+    private int espressoWater = 250;
+    private int espressoMilk = 0;
+    private int espressoCoffeeBeans = 16;
+    private int espressoCost = 4;
 
-    public int latteWater = 350;
-    public int latteMilk = 75;
-    public int latteCoffeeBeans = 20;
-    public int latteCost = 7;
+    private int latteWater = 350;
+    private int latteMilk = 75;
+    private int latteCoffeeBeans = 20;
+    private int latteCost = 7;
 
-    public int cappuccinoWater = 200;
-    public int cappuccinoMilk = 100;
-    public int cappuccinoCoffeeBeans = 12;
-    public int cappuccinoCost = 6;
+    private int cappuccinoWater = 200;
+    private int cappuccinoMilk = 100;
+    private int cappuccinoCoffeeBeans = 12;
+    private int cappuccinoCost = 6;
 
     //GETTERS and SETTERS
     public int getWater(){
@@ -67,25 +67,40 @@ public class BuyCoffee {
         System.out.println("2 - Latte");
         System.out.println("3 - Cappuccino");
         System.out.println("\nWhich coffee option would you like? ");
-        int coffeeOption = scanner.nextInt();
-        return coffeeOption;
+        return scanner.nextInt();
     }
 
     public void dispenseCoffee(int coffeeChoice){
-        if(coffeeChoice == 1){  //make espresso
+        setCups(this.cups--);
+        if(coffeeChoice == 1){
+            //make espresso
             setWater(this.water - espressoWater);
             setMilk(this.milk - espressoMilk);
             setCoffeeBeans(this.milk - espressoCoffeeBeans);
-            setCups(this.cups--);
-            setCash(this.cash - espressoCost);
-
+            setCash(this.cash + espressoCost);
         }
         else if(coffeeChoice == 2){
             //make latte
+            setWater(this.water - latteWater);
+            setMilk(this.milk - latteMilk);
+            setCoffeeBeans(this.coffeeBeans - latteCoffeeBeans);
+            setCash(this.cash + latteCost);
         }
         else if(coffeeChoice == 3){
             //make cappuccino
+            setWater(this.water - cappuccinoWater);
+            setMilk(this.milk - cappuccinoMilk);
+            setCoffeeBeans(this.coffeeBeans - cappuccinoCoffeeBeans);
+            setCash(this.cash + cappuccinoCost);
         }
+    }
+
+    public void displaySupplies(){
+        System.out.println("\nWater left: " + water);
+        System.out.println("Milk left: " + milk);
+        System.out.println("Coffee beans left: " + coffeeBeans);
+        System.out.println("Cups left: " + cups);
+        System.out.println("Cash balance: " + cash + "\n");
     }
 
 

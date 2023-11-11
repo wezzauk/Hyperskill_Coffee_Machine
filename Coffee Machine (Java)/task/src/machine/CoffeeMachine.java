@@ -5,29 +5,39 @@ public class CoffeeMachine {
     static Scanner scanner = new Scanner(System.in);
     public static void main(String[] args) {
 
-        System.out.println("Options\n=======");
-        System.out.println("buy");
-        System.out.println("fill");
-        System.out.println("take");
-        System.out.print("Type in your option: ");
-        String choice = scanner.nextLine();
-
+        BuyCoffee buyCoffee = new BuyCoffee();
+        buyCoffee.displaySupplies();
         boolean cafe = true;
 
         while(cafe) {
+            displayOptions();
+            String choice = scanner.nextLine();
+
             switch (choice) {
                 case "buy":
-                    BuyCoffee buyCoffee = new BuyCoffee();
+                    buyCoffee.displaySupplies();
                     int coffeeChoice = buyCoffee.selectDrink();
-
-                    //code
+                    buyCoffee.dispenseCoffee(coffeeChoice);
+                    System.out.println("Coffee has been served");
+                    buyCoffee.displaySupplies();
+                    break;
                 case "fill":
-                    //test
-                    //code
+                    System.out.println("How much water would you like to add? ");
+                    int addWater = scanner.nextInt();
+                    System.out.println("How much milk would you like to add? ");
+                    int addMilk = scanner.nextInt();
+                    System.out.println("How much coffee beans would you like to add? ");
+                    int addCoffeeBeans = scanner.nextInt();
+                    System.out.println("How many cups would you like to add? ");
+                    int addCups = scanner.nextInt();
+                    buyCoffee.displaySupplies();
+                    break;
                 case "take": //case
-                    //ddd
+                    System.out.println(buyCoffee.getCash());
+                    break;
                 default:
                     System.out.println("Please select a valid option");
+                    break;
             }
         }
 
@@ -40,5 +50,14 @@ public class CoffeeMachine {
         makeCoffee.enoughCoffee(numberOfCoffeeCanMake);
 
 
+    }
+
+    public static void displayOptions(){
+        System.out.println("Options\n=======");
+        System.out.println("buy");
+        System.out.println("fill");
+        System.out.println("take");
+        System.out.print("Type in your option: ");
+        String choice = scanner.nextLine();
     }
 }
