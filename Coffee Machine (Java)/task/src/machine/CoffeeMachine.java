@@ -4,19 +4,17 @@ import java.util.Scanner;
 public class CoffeeMachine {
     static Scanner scanner = new Scanner(System.in);
 
-
     public static void main(String[] args) {
 
-        BuyCoffee buyCoffee = new BuyCoffee();
-        String userChoice = "";
-
         while(true){
+            System.out.println("");
             String choice = mainMenu();
+            if(choice.equals("exit")){
+                System.exit(0);
+            }
+            System.out.println("");
 
             switch (choice) {
-                case "exit":
-                    System.exit(0);
-
                 case "remaining":
                     BuyCoffee.displaySupplies();
                     break;
@@ -35,7 +33,7 @@ public class CoffeeMachine {
                     break;
 
                 case "take":
-                    System.out.println("I gave you $" + BuyCoffee.getCash() + "\n");
+                    System.out.println("I gave you $" + BuyCoffee.getCash());
                     BuyCoffee.setCash(0);
                     break;
             }

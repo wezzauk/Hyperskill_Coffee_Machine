@@ -3,7 +3,6 @@ package machine;
 import java.util.Scanner;
 
 public class BuyCoffee {
-    Scanner scanner = new Scanner(System.in);
     private static int water = 400;
     private static int milk = 540;
     private static int coffeeBeans = 120;
@@ -56,6 +55,19 @@ public class BuyCoffee {
     public static void setCash(int moreCash){
         cash = moreCash;
     }
+    public static int getEspressoWater(){ return espressoWater;}
+    public static int getEspressoMilk(){ return espressoMilk;}
+    public static int getEspressoCoffeeBeans() { return espressoCoffeeBeans;}
+    public static int getEspressoCost() { return espressoCost;}
+    public static int getLatteWater(){ return latteWater;}
+    public static int getLatteMilk(){ return latteMilk;}
+    public static int getLatteCoffeeBeans() { return latteCoffeeBeans;}
+    public static int getLatteCost() { return latteCost;}
+    public static int getCappuccinoWater(){ return cappuccinoWater;}
+    public static int getCappuccinoMilk() { return cappuccinoMilk;}
+    public static int getCappuccinoCoffeeBeans() { return cappuccinoCoffeeBeans;}
+    public static int getCappuccinoCost() { return cappuccinoCost;}
+
     
 
 
@@ -64,24 +76,24 @@ public class BuyCoffee {
 
     public static String checkEnoughSupplies(int coffeeType){
         if(coffeeType == 1){
-            return enoughIngredients(espressoWater, espressoMilk, espressoCoffeeBeans, espressoCost);
+            return enoughIngredients(getEspressoWater(), getEspressoMilk(), getEspressoCoffeeBeans(), getEspressoCost());
             //espresso
         }
         else if(coffeeType == 2){
-            return enoughIngredients(latteWater, latteMilk, latteCoffeeBeans, latteCost);
+            return enoughIngredients(getLatteWater(), getLatteMilk(), getLatteCoffeeBeans(), getLatteCost());
             // latte
         }
         else if(coffeeType ==3){
-            return enoughIngredients(cappuccinoWater, cappuccinoMilk, cappuccinoCoffeeBeans, cappuccinoCost);
+            return enoughIngredients(getCappuccinoWater(), getCappuccinoMilk(), getCappuccinoCoffeeBeans(), getCappuccinoCost());
             //cappuccino
         }
         return "";
     }
 
     public static String enoughIngredients(int cupOfCoffeeWater, int cupOfCoffeeMilk, int cupOfCoffeeBeans, int cupOfCoffeeCost){
-        int cupsByWater = water / cupOfCoffeeWater;
-        int cupsByMilk = milk / cupOfCoffeeMilk;
-        int cupsByCoffeeBeans = coffeeBeans / cupOfCoffeeBeans;
+        int cupsByWater = getWater() - cupOfCoffeeWater;
+        int cupsByMilk = getMilk() - cupOfCoffeeMilk;
+        int cupsByCoffeeBeans = getCoffeeBeans() - cupOfCoffeeBeans;
 
         if(cupsByWater < 0){
             return "Sorry, not enough water!";
@@ -92,36 +104,37 @@ public class BuyCoffee {
         else if(cupsByCoffeeBeans < 0){
             return "Sorry, not enough coffee beans!";
         }
-        setCups(cups - 1);
-        setWater(water - cupOfCoffeeWater);
-        setMilk(milk - cupOfCoffeeMilk);
-        setCoffeeBeans(coffeeBeans - cupOfCoffeeBeans);
-        setCash(cash + cupOfCoffeeCost);
+
+        setCups(getCups() - 1);
+        setWater(getWater() - cupOfCoffeeWater);
+        setMilk(getMilk() - cupOfCoffeeMilk);
+        setCoffeeBeans(getCoffeeBeans() - cupOfCoffeeBeans);
+        setCash(getCash() + cupOfCoffeeCost);
         return "I have enough resources, making you a coffee!";
     }
 
     public static void dispenseCoffee(int coffeeChoice){
-        setCups(cups - 1);
+        setCups(getCups() - 1);
         if(coffeeChoice == 1){
             //make espresso
-            setWater(water - espressoWater);
-            setMilk(milk - espressoMilk);
-            setCoffeeBeans(coffeeBeans - espressoCoffeeBeans);
-            setCash(cash + espressoCost);
+            setWater(getWater() - getEspressoWater());
+            setMilk(getMilk() - getEspressoMilk());
+            setCoffeeBeans(getCoffeeBeans() - getEspressoCoffeeBeans());
+            setCash(getCash() + getEspressoCost());
         }
         else if(coffeeChoice == 2){
             //make latte
-            setWater(water - latteWater);
-            setMilk(milk - latteMilk);
-            setCoffeeBeans(coffeeBeans - latteCoffeeBeans);
-            setCash(cash + latteCost);
+            setWater(getWater() - getLatteWater());
+            setMilk(getMilk() - getLatteMilk());
+            setCoffeeBeans(getCoffeeBeans() - getLatteCoffeeBeans());
+            setCash(getCash() + getLatteCost());
         }
         else if(coffeeChoice == 3){
             //make cappuccino
-            setWater(water - cappuccinoWater);
-            setMilk(milk - cappuccinoMilk);
-            setCoffeeBeans(coffeeBeans - cappuccinoCoffeeBeans);
-            setCash(cash + cappuccinoCost);
+            setWater(getWater() - getCappuccinoWater());
+            setMilk(getMilk() - getCappuccinoMilk());
+            setCoffeeBeans(getCoffeeBeans() - getCappuccinoCoffeeBeans());
+            setCash(getCash() + getCappuccinoCost());
         }
     }
 
@@ -132,7 +145,6 @@ public class BuyCoffee {
         System.out.println(coffeeBeans + " g of coffee beans");
         System.out.println(cups + " disposable cups");
         System.out.println("$" + cash + " of money");
-        System.out.println("");
     }
 
     public static void buyLoop(int coffeeChoice){
@@ -144,18 +156,17 @@ public class BuyCoffee {
 
         System.out.println("Write how many ml of water you want to add:");
         int addWater = scanner.nextInt();
-        setWater(water + addWater);
+        setWater(getWater() + addWater);
         System.out.println("Write how many ml of milk you want to add:");
         int addMilk = scanner.nextInt();
-        setMilk(milk + addMilk);
+        setMilk(getMilk() + addMilk);
         System.out.println("Write how many grams of coffee beans you want to add:");
         int addCoffeeBeans = scanner.nextInt();
-        setCoffeeBeans(coffeeBeans + addCoffeeBeans);
+        setCoffeeBeans(getCoffeeBeans() + addCoffeeBeans);
         System.out.println("Write how many disposable cups you want to add:");
         int addCups = scanner.nextInt();
-        setCups(cups + addCups);
+        setCups(getCups() + addCups);
 
-        scanner.close();
     }
 
 }
